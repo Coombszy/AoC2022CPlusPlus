@@ -66,10 +66,10 @@ int main()
     // Clean elves
     if (const auto the_elves = build_elves_vec("day1input.txt"); the_elves.has_value())
     {
-        const auto& elves = *the_elves;
+        vector<Elf> elves = *the_elves;
 
         sort(elves.begin(), elves.end(),
-            [](Elf& a, Elf& b) {
+            [](const Elf& a, const Elf& b) {
                 return (a.totalCalories > b.totalCalories);
             }
         );
