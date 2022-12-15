@@ -52,6 +52,7 @@ int main()
             largest = e.totalCalories;
         }
     }
+    cout << "Day 1 Part 1" << endl;
     cout << "Highest calorie count is: " << largest << endl;
 
 
@@ -61,11 +62,16 @@ int main()
 
     // Clean elves
     elves = build_elves_vec("day1input.txt");
-    std::sort(elves.front(), elves.back(), 
+    sort(elves.begin(), elves.end(),
         [](Elf& a, Elf&  b) {
-            return (a.totalCalories < b.totalCalories);
+            return (a.totalCalories > b.totalCalories);
         }
     );
+    cout << "Day 1 Part 2" << endl;
+    cout << "1. " << elves[0].totalCalories << endl;
+    cout << "2. " << elves[1].totalCalories << endl;
+    cout << "3. " << elves[2].totalCalories << endl;
+    cout << "Total: " << elves[0].totalCalories + elves[1].totalCalories + elves[2].totalCalories << endl;
 
     // Success
     return 0;
