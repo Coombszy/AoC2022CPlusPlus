@@ -3,19 +3,20 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <optional>
 #include "elf.h"
 
 using namespace std;
 
 // Reads contents of a file to produce elf data
-vector<Elf> build_elves_vec(string file_name) {
+optional<vector<Elf>> build_elves_vec(const string& file_name) {
     
     // Day 1 input
     ifstream file(file_name);
 
     if (!file.is_open()){
         cout << "Failed to open `" << file_name <<"`" << endl;
-        exit(1);
+        return {};
     }
 
     // Elf data
@@ -41,19 +42,21 @@ vector<Elf> build_elves_vec(string file_name) {
 
 int main()
 {
-
     // DAY 1 Part 2
     //------------------------------------------------------------
     // Get the elf largest calorie count
-    vector<Elf> elves = build_elves_vec("day1input.txt");
-    int largest = 0;
-    for (Elf e : elves) {
-        if (e.totalCalories > largest) {
-            largest = e.totalCalories;
+    if (const auto elves = build_elves_vec("day1input.txt"); elves.has_value())
+    {
+        int largest = 0;
+
+        for (const Elf& e : *elves) {
+            if (e.totalCalories > largest) {
+                largest = e.totalCalories;
+            }
         }
+        cout << "Day 1 Part 1" << endl;
+        cout << "Highest calorie count is: " << largest << endl;
     }
-    cout << "Day 1 Part 1" << endl;
-    cout << "Highest calorie count is: " << largest << endl;
 
 
     // DAY 1 Part 2
@@ -61,22 +64,22 @@ int main()
     // Get the top 3 elves with the most calories
 
     // Clean elves
-    elves = build_elves_vec("day1input.txt");
-    sort(elves.begin(), elves.end(),
-        [](Elf& a, Elf&  b) {
-            return (a.totalCalories > b.totalCalories);
-        }
-    );
-    cout << "Day 1 Part 2" << endl;
-    cout << "1. " << elves[0].totalCalories << endl;
-    cout << "2. " << elves[1].totalCalories << endl;
-    cout << "3. " << elves[2].totalCalories << endl;
-    cout << "Total: " << elves[0].totalCalories + elves[1].totalCalories + elves[2].totalCalories << endl;
+    if (const auto the_elves = build_elves_vec("day1input.txt"); the_elves.has_value())
+    {
+        const auto& elves = *the_elves;
+
+        sort(elves.begin(), elves.end(),
+            [](Elf& a, Elf& b) {
+                return (a.totalCalories > b.totalCalories);
+            }
+        );
+        cout << "Day 1 Part 2" << endl;
+        cout << "1. " << elves[0].totalCalories << endl;
+        cout << "2. " << elves[1].totalCalories << endl;
+        cout << "3. " << elves[2].totalCalories << endl;
+        cout << "Total: " << elves[0].totalCalories + elves[1].totalCalories + elves[2].totalCalories << endl;
+    }
 
     // Success
     return 0;
 }
-
-
-
-

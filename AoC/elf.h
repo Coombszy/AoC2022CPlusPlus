@@ -1,16 +1,7 @@
 #pragma once
 
 
-class Elf {
-    
-    public:
-        // Vars
-        int totalCalories;
-
-        // Methods
-        Elf() {
-            totalCalories = 0;
-        }
-
+struct Elf {
+	int totalCalories = 0;
 };
 
