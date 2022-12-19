@@ -1,47 +1,20 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <optional>
 #include <tuple>
+#include <optional>
+#include <vector>
+#include <string>
 
 using namespace std;
 
-namespace aoc
-{
+enum Move { rock = 1, paper = 2, scissors = 3};
 
-    enum Move { rock, paper, scissors};
+// Returns all rounds from input data
+optional<vector<tuple<Move, Move>>> build_rounds_vec(const string& file_name);
 
-    // Reads contents of a file to produce move data
-    optional<vector<tuple<Move, Move>>> build_moves_vec(const string& file_name) {
-        
-        ifstream file(file_name);
+// Used for part 2 to get the correct move based on input
+Move get_draw(const Move& move);
+Move get_win(const Move& move);
+Move get_loss(const Move& move);
 
-        if (!file.is_open()){
-            cout << "Failed to open `" << file_name << "`" << endl;
-            return {};
-        }
-
-        // move data
-        vector<tuple<Move, Move>> moves;
-
-        // Read file contents and add moves to vector
-        string line;
-        while (std::getline(file, line)) {
-            // line.substr(0, )
-            cout << line << endl;
-        }
-
-        return moves;
-    }
-
-    // Splits a string on spaces
-    vector<tuple<Move, Move>> get_moves(string&) {
-
-
-    }
-}
 

@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="day2.cpp" />
+    <ClCompile Include="rps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rps.h" />
